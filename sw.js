@@ -1,48 +1,27 @@
-const CACHE_NAME = 'inventory-app-v1';
+const CACHE_NAME = 'inventory-v1';
 const urlsToCache = [
-    './',
-    './index.html',
-    './style.css',
-    './app.js',
-    './manifest.json'
+    '/',
+    '/index.html',
+    '/app.js',
+    'https://unpkg.com/@zxing/library@latest/umd/index.min.js'
 ];
 
-// تثبيت Service Worker وتخزين الملفات
+// تثبيت Service Worker
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
-            })
+            .then(cache => cache.addAll(urlsToCache))
     );
 });
 
-// حذف الكاش القديم
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
-});
-
-// الاستجابة للطلبات
+// جلب الملفات من الكاش
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
-                // لو موجود في الكاش، رجعه
                 if (response) {
                     return response;
                 }
-                // لو مش موجود، اطلبه من النت
                 return fetch(event.request);
             })
     );
