@@ -1,11 +1,11 @@
 {
-    "name": "جرد المخزون",
+    "name": "نظام إدارة المخزون",
     "short_name": "المخزون",
-    "description": "تطبيق جرد المخزون للفريق",
-    "start_url": "./index.html",
+    "description": "تطبيق لإدارة المخزون مع دعم الباركود",
+    "start_url": "/inventory-app/",
     "display": "standalone",
-    "background_color": "#f0f2f5",
-    "theme_color": "#2196F3",
+    "background_color": "#1e3a5f",
+    "theme_color": "#1e3a5f",
     "orientation": "portrait",
     "icons": [
         {
